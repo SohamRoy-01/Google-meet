@@ -1,4 +1,7 @@
+import job from "@/cron/cron";
 import { Server } from "socket.io";
+
+job.start()
 
 const SocketHandler = (req, res) => {
     console.log("called api")
