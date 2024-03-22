@@ -1,7 +1,7 @@
-import job from "@/cron/cron";
 import { Server } from "socket.io";
+import job from "@/cron/cron";
 
-job.start()
+
 
 const SocketHandler = (req, res) => {
     console.log("called api")
@@ -35,6 +35,10 @@ const SocketHandler = (req, res) => {
                 socket.broadcast.to(roomId).emit('user-leave', userId)
             })
         })
+
+        job.start() // start the cron jobs when server starts  
+        
+        req.io = io;  // add the instance to the request so it can be used in other routes
     }
     res.end();
 }
