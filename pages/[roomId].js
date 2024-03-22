@@ -83,11 +83,24 @@ const Room = () => {
 
     const handleUserLeave = (userId) => {
       console.log(`user ${userId} is leaving the room`);
-      users[userId]?.close()
+      
+      // Close the peer connection associated with the leaving user
+      users[userId]?.close();
+    
+      // Stop and remove tracks associated with the leaving user from the media stream
+      if (stream && users[userId]) {
+        users[userId].stream.getTracks().forEach(track => {
+          track.stop();
+          stream.removeTrack(track);
+        });
+      }
+    
+      // Remove the leaving user from the players state
       const playersCopy = cloneDeep(players);
       delete playersCopy[userId];
       setPlayers(playersCopy);
     }
+    
     socket.on("user-toggle-audio", handleToggleAudio);
     socket.on("user-toggle-video", handleToggleVideo);
     socket.on("user-leave", handleUserLeave);
@@ -96,7 +109,7 @@ const Room = () => {
       socket.off("user-toggle-video", handleToggleVideo);
       socket.off("user-leave", handleUserLeave);
     };
-  }, [players, setPlayers, socket, users]);
+  }, [players, setPlayers, socket, stream, users]);
 
   useEffect(() => {
     if (!peer || !stream) return;
