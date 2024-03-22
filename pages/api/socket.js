@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import job from "@/cron/cron";
+// import job from "@/cron/cron";
 
 
 
@@ -36,9 +36,9 @@ const SocketHandler = (req, res) => {
             })
         })
 
-        job.start() // start the cron jobs when server starts  
+        // job.start() // start the cron jobs when server starts  
         
-        req.io = io;  // add the instance to the request so it can be used in other routes
+        // req.io = io;  // add the instance to the request so it can be used in other routes
     }
     res.end();
 }
