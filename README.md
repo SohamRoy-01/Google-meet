@@ -62,4 +62,4 @@ Signaling Server: Configure the signaling server URL in socket.js to match your 
 
 ## Author
 
-[Your Name](https://portfolio-self-sigma-93.vercel.app/)
+[Soham Roy](https://portfolio-self-sigma-93.vercel.app/)
